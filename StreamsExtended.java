@@ -65,7 +65,7 @@ public class StreamsExtended {
 	                                                   Collectors.summingInt(Task::getTimeRequired)));
 	     System.out.println("7::"+totalTimeByStatus);
 
-	     
+	 //Added to github    
 	}
 
 }

@@ -1,6 +1,7 @@
 package Week1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,7 +66,28 @@ public class StreamsExtended {
 	                                                   Collectors.summingInt(Task::getTimeRequired)));
 	     System.out.println("7::"+totalTimeByStatus);
 
-	 //Added to github .   
+	   //Partition tasks into “pending” vs. “non-pending”
+
+	     Map<Boolean, List<Task>> partitionedTasks = list.stream()
+	    		    .collect(Collectors.partitioningBy(t -> t.getStatus().equals("Pending")));
+	    		
+	     System.out.println("8::Pending: " + partitionedTasks.get(true).size());
+	     
+	    // Extract task names by status
+	     
+	     Map<String, List<String>> namesByStatus = list.stream()
+	    		    .collect(Collectors.groupingBy(Task::getStatus,
+	    		        Collectors.mapping(Task::getName, Collectors.toList())));
+	    		
+	     namesByStatus.forEach((status, names) -> 
+	    		    System.out.println("9::"+status + ": " + names));
+	     
+	     
+	     Map<Boolean, Integer> hm2= new HashMap<>();
+	     
+	     hm2=list.stream().collect(Collectors.partitioningBy(task -> task.getTimeRequired()>15,Collectors.summingInt(Task::getTimeRequired)));
+	     		System.out.println("10::"+hm2);
+	     
 	}
 
 }
